@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+     #clickme{
+         cursor: pointer;
+        }
+    .clsPara {
+      background-color: aquamarine;
+      display: inline;
+    }
+    #clrRed{
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+   <!-- 0. click me  -->
+   <div id="clickme" onmouseleave="clickMeFn(this)">Click me</div>
+  <!--1. event delegation -->
+  <ul id="parent">
+    <li>one</li>
+    <li>two</li>
+    <li>three</li>
+    <li>four</li>
+  </ul>
+
+  <!--2. event propogation -->
+  <div id="outer" style="background-color: red;height: 5rem;">
+    outer
+    <div id="middle" style="background-color: yellow;height: 3rem;width: 60%;margin: auto;">
+      middle
+      <div id="inner" style="background-color: rgb(67, 206, 150);width: 30%;margin: auto;">
+        inner
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+  <!-- 3. Task sum number taking inputs from user  -->
+  <div id="calculate">
+    <input type="text" placeholder="enter number1:">
+    <input type="text" placeholder="enter number2:">
+    <button id="sum" onclick="sumFn()">sum</button>
+    <p id="para"></p>
+  </div>
+
+  <br>
+  
+  <!-- 4. mouseover content loading -->
+  <span>Content</span>
+
+  <script>
+    // 0. click me
+     function clickMeFn(e){
+       e.style.color="red"
+       e.innerHTML="asdf"        
+     }
+    //  window.load(alert('load'))
+
+    //1. event delegation
+    let fn = (e) => {
+      console.log(e.target.innerHTML)
+    }
+    let ul = document.getElementById('parent')
+    ul.addEventListener('click', fn)
+
+    //2. event propogation ( event bubbling and capturing)
+    document.getElementById('outer').addEventListener('click', () => {
+      console.log('outer clicked')
+    }, true)
+    document.getElementById('middle').addEventListener('click', () => {
+      console.log('middle clicked')
+    }, true)
+    document.getElementById('inner').addEventListener('click', () => {
+      console.log('inner clicked')
+    }, true)
+
+   
+    // 3. Task sum number taking inputs from user
+    sumFn()
+    function sumFn() {
+      let para = document.getElementById('para')
+      let res = 0
+      let inputs = document.querySelectorAll('#calculate input')
+      // console.log(inputs[0].value)
+      for (let i of inputs) {
+        res += Number(i.value)
+      }
+      if(res!=0){
+        para.classList.add('clsPara')
+        // para.className='clsPara';
+        para.innerText = "Sum is: " + res
+      }
+    }
+
+    //4. mouseover content loading
+     let span=document.querySelector('span')
+    span.addEventListener('mouseover',()=>{
+      span.textContent='loading..'
+      span.setAttribute('id','clrRed')
+      setTimeout(() => {
+        span.removeAttribute('id')
+        span.textContent="Cotent"
+      }, 1000);
+    })
+
+  </script>
+</body>
+
+</html>
