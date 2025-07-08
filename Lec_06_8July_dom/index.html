@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- debouncing -->
+   Search Fruits: <input id="search" type="text">
+   <ul id="resultList">
+   </ul>
+
+
+   <!-- browser storage -->
+
+   <script>
+    let data=['apple','apple shake','banana','banana shake','orange','graphes','pine apple','strawberry']
+    function debounce(func,delay){
+      let time;
+      return function(...args){
+        clearTimeout(time)
+        time=setTimeout(()=>func.apply(this,args),delay)
+      }
+    }
+    function searchHandle(e){
+      let ul=document.getElementById('resultList')
+      ul.innerHTML=''      
+      let dummy=[]
+      let input=e.target.value.toLowerCase()
+       for(let i of data){
+        if(i.includes(input)){
+          dummy.push(i)
+        }
+      }
+      for(let ele of dummy){
+        let li=document.createElement('li')
+        li.innerText=ele
+        ul.appendChild(li)
+      }
+    }
+    let debSearch=debounce(searchHandle,1000)
+    document.getElementById('search').addEventListener('input',debSearch)
+   </script>
+</body>
+</html>
