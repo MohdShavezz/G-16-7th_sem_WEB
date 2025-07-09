@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  Assync Programming:
+
+<script>
+
+// console.log('one')
+// console.log('two')
+// console.log('three')
+
+// console.log('one')
+// setTimeout(() => {
+//   console.log('two')
+// }, 1000);
+// for (let index = 0; index < 1000; index++) {
+//   console.log(index)  
+// }
+// console.log('three')
+
+// setTimeout(() => {
+//   console.log('3')
+// }, 3000);
+// setTimeout(() => {
+//   console.log('1')
+// }, 1000);
+// setTimeout(() => {
+//   console.log('2')
+// }, 2000);
+
+// 3 1 2 maintain execution order given
+// callback hell
+// setTimeout(() => {
+//   console.log('3')
+//       setTimeout(() => {
+//         console.log('1')
+//           setTimeout(() => {
+//             console.log('2')
+//       }, 2000);
+//     }, 1000);
+//   }, 3000);
+
+
+//callback
+// callback is always a function
+// function greet(name,sayHello){
+//   console.log('Hi, '+name)
+//   sayHello()
+// }
+// function sayHello(){
+//  console.log('hello')
+// }
+// greet('user',sayHello)
+
+//Promise
+// const fetchData =()=>{
+//   return new Promise((res,rej)=>{
+//     const success=false
+//     setTimeout(() => {
+//       if( success){
+//         res('res') // success
+//       }else{
+//         rej('rej') //fail
+//       }
+//     }, 1000);
+//   })
+// }
+// // console.log(fetchData()) // pending promise initially
+// fetchData().then((data)=>{
+// console.log(data)
+// }).catch(err=>console.log(err))
+
+//Promise chaining
+const stepOne=()=>{
+  return new Promise(resolve=>{
+    setTimeout(() => {
+      resolve('step one complete.')
+    }, 1000);
+  })
+}
+const stepTwo=()=>{
+  return new Promise(resolve=>{
+    setTimeout(() => {
+      resolve('step two complete.')
+    }, 1000);
+  })
+}
+// stepOne()
+// .then((data)=>{
+//   console.log(data)
+//   return stepTwo()
+// }).then((stepTwoData)=>{
+//   console.log(stepTwoData)
+// }).catch(err=>console.log(err))
+
+//Async Await
+
+// (async()=>{
+//  try {
+//   let res1=await stepOne()
+//  console.log(res1)
+//  let res2=await stepTwo()
+//  console.log(res2)
+//  } catch (error) {
+//   console.log(error)
+//  }
+// })()
+
+
+
+// https://jsonplaceholder.typicode.com/users/{id} 
+
+//1. USING then/cathch
+fetch('https://jsonplaceholder.typicode.com/users/1')
+.then(res=>res.json())
+.then(data=>console.log(data))
+
+//2. USING async/await
+// (async()=>{
+// let res = await fetch('https://jsonplaceholder.typicode.com/users/1')
+// let data= await res.json()
+// console.log(data)
+// })()
+
+</script>
+</body>
+</html>
