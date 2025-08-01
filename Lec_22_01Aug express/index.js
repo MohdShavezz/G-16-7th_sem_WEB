@@ -7,7 +7,6 @@ import morgan from 'morgan';
 import multer from 'multer';
 
 // Set up Multer storage
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
