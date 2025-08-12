@@ -1,0 +1,24 @@
+<form action="/shorturl" method="post" enctype="multipart/form-data">
+    <input type="url" name="originalUrl" placeholder="enter url">
+    <input type="file" name="picture">
+    <button type="submit">click</button>
+</form>
+
+<% if (urls.length>0) { %>
+    <% urls.forEach(url=> { %>
+        <ul style="list-style: none;">
+            <li><a href="/">
+                    <%= req.headers.host %>/<%= url.shortUrl %>
+                </a> </li>
+            <li>
+                <%= url.originalUrl %>
+            </li>
+            <li>
+                <%= url.visitCount %>
+            </li>
+        </ul>
+        <form action="/<%= url._id %>" method="post">
+            <button type="submit">Delete</button>
+        </form>
+        <% }) %>
+            <% } %>
