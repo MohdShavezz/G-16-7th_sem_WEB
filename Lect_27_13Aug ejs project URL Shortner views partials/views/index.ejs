@@ -1,0 +1,33 @@
+
+<%- include('partials/common.ejs', {data:['home','contact','blog']}) %>
+
+<form action="/shorturl" method="post" enctype="multipart/form-data">
+    <input type="url" name="originalUrl" placeholder="enter url">
+    <input type="file" name="picture">
+    <button type="submit">click</button>
+</form>
+
+<% if (urls.length>0) { %>
+    <% urls.forEach(url=> { %>
+        <ul style="list-style: none;">
+            <% if (url.pictureUrl) { %>             
+                <img src="<%= url.pictureUrl %>" alt="picture" height="50" width="50">
+            <% } %>
+            <li><span>Short Url:</span> <a href="/<%= url.shortUrl %>">
+                    <%= req.headers.host %>/<%= url.shortUrl %>
+                </a> </li>
+            <li>
+                <span>Original Url:</span><%= url.originalUrl %>
+            </li>
+            <li>
+              <span>Visit Count:</span>  <%= url.visitCount %>
+            </li>
+            <form action="/<%= url._id %>" method="post">
+            <button type="submit">Delete</button>
+        </form>
+        </ul>
+        
+        <% }) %>
+            <% } %>
+
+<%- include('partials/common.ejs', {data:['service','advertisement']}) %>
